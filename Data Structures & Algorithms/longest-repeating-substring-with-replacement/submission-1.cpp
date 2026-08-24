@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        
+        unordered_map<char, int> freq;
+        int l = 0;
+        int longest = 0;
+        int max_freq = 0;
+        for(int r = 0; r < s.size(); r++){
+            
+            freq[s[r]]++;
+
+            for(auto& [character, count] : freq){
+                max_freq = max(max_freq, count);
+            }
+            int lenth = r - l + 1 - max_freq;
+            if(lenth <= k){
+                longest = max((r - l + 1), lenth);
+            }
+            else{
+                freq[s[l]]--;
+                l++;
+            }
+        }
+        return longest;
+    }
+};
